@@ -57,24 +57,24 @@ def mede_distancia(n=N_AMOSTRAS):                       #Mede várias vezes a di
 
 
 
-GPIO.setmode(GPIO.BCM)                                                
+GPIO.setmode(GPIO.BCM)                                   #Nesta parte são definidas as portas GPIOs da raspberry     
 GPIO.setwarnings(False)
 GPIO.setup(PINO_TRIG, GPIO.OUT, initial=GPIO.LOW)   
 GPIO.setup(PINO_ECHO, GPIO.IN)                      
 GPIO.setup(PINO_LED, GPIO.OUT, initial=GPIO.LOW)    
 
-time.sleep(0.5)                          
+time.sleep(0.5)                           
 led_aceso = False
 
 print(f"Medindo distância. O LED acende abaixo de {LIMIAR_LIGA_CM:.0f} cm "
       f"e apaga acima de {LIMIAR_DESLIGA_CM:.0f} cm.")
 print("CTRL+C para sair.")
 
-try:
+try:                                                    #É definido aqui a distância mínima para que o LED de aviso ascenda
     while True:
         d = mede_distancia()
 
-        if d is None:
+        if d is None:                                   
             GPIO.output(PINO_LED, GPIO.LOW)         # sem leitura -> apaga
             led_aceso = False
             print("\rSem eco (fora de alcance)          ", end="", flush=True)
@@ -97,7 +97,3 @@ finally:
     GPIO.cleanup()                       # libera TRIG, ECHO e LED
     print("GPIO liberada (cleanup).")
     
-    
-    
-    
-#esse foi o utilizado no video 1
